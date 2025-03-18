@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { PlayCircle } from "lucide-react";
 
 
 export const me = {
@@ -170,7 +171,7 @@ const Hero = () => {
             </div>
 
             <div className="my-6 flex items-center gap-4">
-                <Button className="bg-black text-white rounded-full px-6 hover:bg-black/90">Book a call</Button>
+                <Button className="bg-black text-white cursor-pointer rounded-full px-6 hover:bg-black/90">Book a call</Button>
                 <p className="text-sm text-gray-600 max-w-xs">
                     Feel free to explore my portfolio and reach out—I'd love to connect!
                 </p>
@@ -271,17 +272,14 @@ const Hero = () => {
                     </div >
                 </div>
 
+
+
                 <div className="rounded-4xl bg-[#F6F6F6] border-[#FAFAFA] border-4 p-4 pb-0 aspect-square flex flex-col" >
-                    <h3 className="text-sm text-gray-600 w-fit mb-4 bg-white rounded-full px-4 py-2">What I'm reading</h3>
-                    <div className="flex-1 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-                        <div className="mb-4">
-                            <h6 className="text-sm font-semibold text-gray-900">{book.title}</h6>
-                            <p className="text-[8px] text-gray-500">{book.author}</p>
-                        </div>
+                    <div className="flex-1 flex flex-col justify-between overflow-y-auto p-0 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
                         <div className="rounded-[28px] bg-white border border-gray-200 shadow-sm p-2 w-full max-w-sm">
 
                             <motion.div
-                                className="relative w-full aspect-square max-w-[180px] mx-auto rounded-xl overflow-hidden"
+                                className="relative w-full aspect-3/2 max-w-[180px] mx-auto rounded-xl overflow-hidden"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{
@@ -295,16 +293,39 @@ const Hero = () => {
                                 }}
                             >
                                 <Image
-                                    src={book.coverImage || "/placeholder.svg"}
-                                    alt={`Cover of ${book.title} by ${book.author}`}
+                                    src="/music.jpeg"
+                                    alt="cover of Symphonie No5"
                                     fill
                                     className="object-cover"
                                 />
                             </motion.div>
                         </div>
+                        <h3 className="text-[10px] text-gray-600 w-fit bg-white rounded-full px-2 py-1">A fav Music</h3>
+
+                        <div className="flex mb-4 justify-between">
+                            <div>
+                                <h6 className="text-sm font-semibold text-gray-900">Symphonie No5</h6>
+                                <p className="text-[8px] text-gray-500">Beethoven</p>
+                            </div>
+
+                            <button>
+                                <Image
+                                    src="spotify.svg"
+                                    alt="spotify_icon"
+                                    width={20}
+                                    height={20}
+                                    className="cursor-pointer"
+                                />
+                            </button>
+
+                        </div>
+
 
                     </div >
                 </div>
+
+
+
                 <div className="rounded-4xl relative bg-[#F6F6F6] border-[#FAFAFA] border-4 p-4 pb-0 flex flex-col md:col-span-2" >
                     <h3 className="text-sm font-bold text-gray-700  bg-white rounded-full px-4 py-2 w-fit mb-6">My projects</h3>
 
@@ -324,7 +345,7 @@ const Hero = () => {
                         </motion.div>
                     </AnimatePresence>
 
-                    <div className="absolute bottom-2 flex flex-wrap gap-1">
+                    <div className="absolute  bg-white rounded-full px-2 py-2 w-fit bottom-2 flex flex-wrap gap-1">
                         {projects.map((project, index) => (
                             <motion.button
                                 key={index}
