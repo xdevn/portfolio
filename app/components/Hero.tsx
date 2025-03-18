@@ -325,18 +325,18 @@ const Hero = () => {
                     </AnimatePresence>
 
                     <div className="absolute bottom-2 flex flex-wrap gap-1">
-                        {projects.map((step, index) => (
+                        {projects.map((project, index) => (
                             <motion.button
                                 key={index}
                                 onClick={() => setActiveStep(index)}
-                                className={`px-4 py-1.5 rounded-full text-sm cursor-pointer ${index === activeStep ? "bg-black text-white" : "text-gray-700 hover:bg-gray-200 transition-colors"
+                                className={`px-4 py-1.5 rounded-full text-[10px] cursor-pointer ${index === activeStep ? "bg-black text-white" : "text-gray-700 hover:bg-gray-200 transition-colors"
                                     }`}
                                 whileHover={{ scale: index !== activeStep ? 1.05 : 1 }}
                                 whileTap={{ scale: 0.98 }}
-                                aria-label={`View step ${step.number}: ${step.title}`}
+                                aria-label={`View step ${project.number}: ${project.title}`}
                                 aria-current={index === activeStep ? "step" : undefined}
                             >
-                                Step {step.number}
+                                Project {project.number}
                             </motion.button>
                         ))}
                     </div>
