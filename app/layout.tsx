@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "portfolio",
+  title: "Emmanurl TOFA",
   description: "Emmadex portfolio",
 };
 

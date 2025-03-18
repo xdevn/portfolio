@@ -121,8 +121,9 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Geist'
+    @apply bg-[#F8F8F8] text-foreground;
+    font-family: 'Geist';
+    /* overflow: hidden; */
     
   }
 }

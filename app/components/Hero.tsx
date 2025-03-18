@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 export const me = {
@@ -60,9 +60,86 @@ const experiences = [
     },
 ]
 
+const techStack = [
+    {
+        logo: "/next.svg",
+        name: "Next.js",
+    },
+    {
+        logo: "/tailwind.svg",
+        name: "tailwindCSS"
+    },
+    {
+        logo: "/typescript.svg",
+        name: "Typescript"
+    },
+    {
+        logo: "/nodejs.svg",
+        name: "NodeJs"
+    },
+    {
+        logo: "/express.svg",
+        name: "Express.js"
+    },
+    {
+        logo: "/mysql.svg",
+        name: "MySQL"
+    },
+    {
+        logo: "/prisma.svg",
+        name: "PrismaORM"
+    }
+]
+
+
+const book = {
+    title: "Plus Malin que le Diable",
+    author: "Napoléon Hill",
+    coverImage: "/book.jpeg",
+}
+
+
+const projects = [
+    {
+        number: "01",
+        title: "Odon Dashboard",
+        description:
+            "I designed and developed Odon's management dashboard, integrating an intuitive interface and advanced features for a seamless user experience.",
+    },
+    {
+        number: "02",
+        title: "Yois Landing Page",
+        description:
+            "I created the landing page for Yois, focusing on a clean design, smooth navigation, and SEO optimization to maximize visibility.",
+    },
+    {
+        number: "03",
+        title: "OpenFAQ Landing Page",
+        description:
+            "I designed and built the landing page for OpenFAQ, a SaaS platform that allows users to generate dynamic and customizable FAQs.",
+    },
+    {
+        number: "04",
+        title: "Najah's Core Website",
+        description:
+            "I developed the website for Najah's Core using Next.js, highlighting the company's services and values through a polished and responsive interface.",
+    },
+    {
+        number: "05",
+        title: "Optimization & Support",
+        description:
+            "I provide ongoing support and optimizations for completed projects, ensuring continuous improvements and efficient maintenance.",
+    },
+];
+
+
+
+
 const Hero = () => {
+
+    const [activeStep, setActiveStep] = useState(0)
     return (
-        <section className="max-w-3xl text-3xl font-bold mx-auto px-4 gap-3 flex flex-col">
+        <section className="max-w-3xl text-3xl font-bold mx-auto px-4 gap-2 flex flex-col">
             <div className="flex items-center">
                 <h1 className="">Hi, I'm</h1>
                 <div className="relative size-16 overflow-hidden rounded-3xl mx-2 border-gray-300/40 border-4">
@@ -101,10 +178,11 @@ const Hero = () => {
 
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-12 w-fit">
-                <div className="rounded-4xl border-gray-300/40 border-4 p-4  ">
-                    <h3 className="text-sm text-gray-600 mb-4">My Experience</h3>
-                    <div className="relative aspect-square border-gray-300 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-
+                <div className="rounded-4xl bg-[#F6F6F6] border-[#FAFAFA] border-4 p-4 aspect-square flex flex-col">
+                    <h3 className="text-sm text-gray-600 w-fit mb-4 bg-white rounded-full px-4 py-2">
+                        My Experience
+                    </h3>
+                    <div className="flex-1 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
                         {experiences.map((exp, index) => (
                             <motion.div
                                 key={index}
@@ -112,135 +190,158 @@ const Hero = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.3, delay: index * 0.1 }}
                                 className="relative flex gap-6 pb-5 cursor-pointer"
-                                // whileHover={{
-                                //     scale: 1,
-                                //     transition: { duration: 0.2 },
-                                // }}
                             >
-                                <div className="w-3 h-3 mt-1.5 before:absolute before:left-[5.5px] before:h-full before:w-[2px] before:bg-gray-400">
-                                    <svg
-                                        width="12"
-                                        height="12"
-                                        viewBox="0 0 24 24"
-                                        fill= "#99a1af"
-                                        stroke="none"
-                                        strokeWidth="2"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
-                                        />
+                                <div className="w-3 h-3 mt-1.5 after:absolute after:left-[5px] after:h-full after:w-[2px] after:bg-gray-400">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#000" stroke="none" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" />
                                     </svg>
                                 </div>
-                                <div className="">
-                                    <h4 className="text-sm font-medium">
-                                        {exp.title} at {exp.company}
-                                    </h4>
-                                    <p className="text-xs text-gray-500">
-                                        {exp.year} - {exp.locationType} - {exp.employmentType}
-                                    </p>
+                                <div>
+                                    <h4 className="text-sm font-medium">{exp.title} at {exp.company}</h4>
+                                    <p className="text-xs text-gray-500">{exp.year} - {exp.locationType} - {exp.employmentType}</p>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
                 </div>
 
+                <div className="rounded-4xl bg-[#F6F6F6] border-[#FAFAFA] border-4 p-4 aspect-square flex flex-col">
+                    <h3 className="text-sm text-gray-600 w-fit mb-4 bg-white rounded-full px-4 py-2">
+                        My Tech Stack
+                    </h3>
+                    <div className="flex-1 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                        {
+                            techStack.map((element, key) => (
+                                <motion.div
+                                    key={element.name}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.3, delay: key * 0.1 }}
+                                    className="relative flex items-center gap-6 mb-3 cursor-pointer"
 
-                <div className="rounded-4xl border-gray-300/40 border-4 p-4  ">
-                    <h3 className="text-sm text-gray-600 mb-4">My Music Playlist</h3>
-                    <div className="relative aspect-square border-gray-300 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                                >
+                                    <Image
+                                        src={element.logo}
+                                        alt={element.name}
+                                        width={20}
+                                        height={20}
+                                        className=""
+                                    />
+                                    <span className="text-sm font-medium">{element.name}</span>
 
-                        {experiences.map((exp, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: index * 0.1 }}
-                                className="relative flex gap-6 pb-5 cursor-pointer"
-                                // whileHover={{
-                                //     scale: 1,
-                                //     transition: { duration: 0.2 },
-                                // }}
-                            >
-                                <div className="w-3 h-3 mt-1.5 before:absolute before:left-[5.5px] before:h-full before:w-[2px] before:bg-gray-400">
-                                    <svg
-                                        width="12"
-                                        height="12"
-                                        viewBox="0 0 24 24"
-                                        fill= "#99a1af"
-                                        stroke="none"
-                                        strokeWidth="2"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div className="">
-                                    <h4 className="text-sm font-medium">
-                                        {exp.title} at {exp.company}
-                                    </h4>
-                                    <p className="text-xs text-gray-500">
-                                        {exp.year} - {exp.locationType} - {exp.employmentType}
-                                    </p>
-                                </div>
-                            </motion.div>
-                        ))}
+                                </motion.div>
+                            ))
+                        }
+
                     </div>
                 </div>
-                <div className="rounded-4xl border-gray-300/40 border-4 p-4  ">
-                    <h3 className="text-sm text-gray-600 mb-4">What I'm reading</h3>
-                    <div className="relative aspect-square border-gray-300 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
 
-                        {experiences.map((exp, index) => (
+                <div className="rounded-4xl bg-[#F6F6F6] border-[#FAFAFA] border-4 p-4 pb-0 aspect-square flex flex-col" >
+                    <h3 className="text-sm text-gray-600 w-fit mb-4 bg-white rounded-full px-4 py-2">What I'm reading</h3>
+                    <div className="flex-1 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                        <div className="mb-4">
+                            <h6 className="text-sm font-semibold text-gray-900">{book.title}</h6>
+                            <p className="text-[8px] text-gray-500">{book.author}</p>
+                        </div>
+                        <div className="rounded-[28px] bg-white border border-gray-200 shadow-sm p-2 w-full max-w-sm">
+
                             <motion.div
-                                key={index}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: index * 0.1 }}
-                                className="relative flex gap-6 pb-5 cursor-pointer"
-                                // whileHover={{
-                                //     scale: 1,
-                                //     transition: { duration: 0.2 },
-                                // }}
+                                className="relative w-full aspect-square max-w-[180px] mx-auto rounded-xl overflow-hidden"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.5,
+                                    type: "spring",
+                                    stiffness: 100,
+                                }}
+                                whileHover={{
+                                    scale: 1.02,
+                                    transition: { duration: 0.2 },
+                                }}
                             >
-                                <div className="w-3 h-3 mt-1.5 before:absolute before:left-[5.5px] before:h-full before:w-[2px] before:bg-gray-400">
-                                    <svg
-                                        width="12"
-                                        height="12"
-                                        viewBox="0 0 24 24"
-                                        fill= "#99a1af"
-                                        stroke="none"
-                                        strokeWidth="2"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div className="">
-                                    <h4 className="text-sm font-medium">
-                                        {exp.title} at {exp.company}
-                                    </h4>
-                                    <p className="text-xs text-gray-500">
-                                        {exp.year} - {exp.locationType} - {exp.employmentType}
-                                    </p>
-                                </div>
+                                <Image
+                                    src={book.coverImage || "/placeholder.svg"}
+                                    alt={`Cover of ${book.title} by ${book.author}`}
+                                    fill
+                                    className="object-cover"
+                                />
                             </motion.div>
+                        </div>
+
+                    </div >
+                </div>
+
+                <div className="rounded-4xl bg-[#F6F6F6] border-[#FAFAFA] border-4 p-4 pb-0 aspect-square flex flex-col" >
+                    <h3 className="text-sm text-gray-600 w-fit mb-4 bg-white rounded-full px-4 py-2">What I'm reading</h3>
+                    <div className="flex-1 overflow-y-auto pr-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                        <div className="mb-4">
+                            <h6 className="text-sm font-semibold text-gray-900">{book.title}</h6>
+                            <p className="text-[8px] text-gray-500">{book.author}</p>
+                        </div>
+                        <div className="rounded-[28px] bg-white border border-gray-200 shadow-sm p-2 w-full max-w-sm">
+
+                            <motion.div
+                                className="relative w-full aspect-square max-w-[180px] mx-auto rounded-xl overflow-hidden"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.5,
+                                    type: "spring",
+                                    stiffness: 100,
+                                }}
+                                whileHover={{
+                                    scale: 1.02,
+                                    transition: { duration: 0.2 },
+                                }}
+                            >
+                                <Image
+                                    src={book.coverImage || "/placeholder.svg"}
+                                    alt={`Cover of ${book.title} by ${book.author}`}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </motion.div>
+                        </div>
+
+                    </div >
+                </div>
+                <div className="rounded-4xl relative bg-[#F6F6F6] border-[#FAFAFA] border-4 p-4 pb-0 flex flex-col md:col-span-2" >
+                    <h3 className="text-sm font-bold text-gray-700  bg-white rounded-full px-4 py-2 w-fit mb-6">My projects</h3>
+
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeStep}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                            className="mb-8"
+                        >
+                            <h4 className="text-sm font-bold mb-2">
+                                {projects[activeStep].number} {projects[activeStep].title}
+                            </h4>
+                            <p className="text-gray-500 text-sm leading-relaxed font-medium">{projects[activeStep].description}</p>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    <div className="absolute bottom-2 flex flex-wrap gap-1">
+                        {projects.map((step, index) => (
+                            <motion.button
+                                key={index}
+                                onClick={() => setActiveStep(index)}
+                                className={`px-4 py-1.5 rounded-full text-sm cursor-pointer ${index === activeStep ? "bg-black text-white" : "text-gray-700 hover:bg-gray-200 transition-colors"
+                                    }`}
+                                whileHover={{ scale: index !== activeStep ? 1.05 : 1 }}
+                                whileTap={{ scale: 0.98 }}
+                                aria-label={`View step ${step.number}: ${step.title}`}
+                                aria-current={index === activeStep ? "step" : undefined}
+                            >
+                                Step {step.number}
+                            </motion.button>
                         ))}
                     </div>
                 </div>
             </div>
-
-
         </section>
     );
 };
